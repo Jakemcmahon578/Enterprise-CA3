@@ -31,7 +31,7 @@ export default function RootLayout({
               <Link href="/events">Events</Link>
               <Link href="/timetable">Timetable</Link>
               <Link href="/canteen">Canteen</Link>
-              <Link href="/campus-map">Campus Map</Link>
+              <Link href="/map">Campus Map</Link>
               <Link href="/lost&found">lost&found</Link>
               <Link href="/accessibility">Accessibility</Link>
               <Link href="/settings">Settings</Link>
