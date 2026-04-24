@@ -4,18 +4,18 @@ const buildings = [
     name: "Tech Building",
     subjects: ["Web Development", "Programming", "Cyber Security"],
     entrance: "North Entrance",
-    emergencyExit: "Rear East Exit",
+    emergencyExit: "East Fire Exit",
     floors: 4,
-    className: "building techBuilding"
+    className: "mapBuilding tech"
   },
   {
     id: "science",
     name: "Science Block",
     subjects: ["Biology", "Chemistry", "Physics"],
     entrance: "East Entrance",
-    emergencyExit: "South Lab Exit",
+    emergencyExit: "South Fire Exit",
     floors: 3,
-    className: "building scienceBuilding"
+    className: "mapBuilding science"
   },
   {
     id: "business",
@@ -24,16 +24,16 @@ const buildings = [
     entrance: "Main Entrance",
     emergencyExit: "West Fire Exit",
     floors: 5,
-    className: "building businessBuilding"
+    className: "mapBuilding business"
   },
   {
     id: "arts",
     name: "Arts Building",
     subjects: ["Graphic Design", "Media", "Photography"],
     entrance: "West Entrance",
-    emergencyExit: "Studio Side Exit",
+    emergencyExit: "Studio Fire Exit",
     floors: 2,
-    className: "building artsBuilding"
+    className: "mapBuilding arts"
   },
   {
     id: "library",
@@ -42,7 +42,7 @@ const buildings = [
     entrance: "South Entrance",
     emergencyExit: "Quiet Zone Exit",
     floors: 3,
-    className: "building libraryBuilding"
+    className: "mapBuilding library"
   }
 ];
 
@@ -53,35 +53,61 @@ export default function CampusMapPage() {
         <p className="eyebrow">Campus Navigation</p>
         <h1>Campus map</h1>
         <p>
-          Use this fictional map to find buildings, entrances, emergency exits,
-          subjects, and connected footpaths.
+          A fictional campus map showing buildings, paths, entrances, emergency
+          exits, floors, and subjects.
         </p>
       </section>
 
-      <section className="mapCanvas" aria-label="Visual campus map">
-        <div className="mainPath">Main student footpath</div>
+      <section className="mapWrapper" aria-labelledby="map-heading">
+        <h2 id="map-heading">Visual campus layout</h2>
 
-        {buildings.map((building) => (
-          <article className={building.className} key={building.id}>
-            <span className="entranceSign">Entrance</span>
-            <span className="exitSign">Emergency exit</span>
+        <div className="campusMap" aria-label="Campus map with buildings and paths">
+          <div className="path horizontalPath">Main Footpath</div>
+          <div className="path verticalPath">Central Path</div>
 
-            <h2>{building.name}</h2>
-            <p>
-              <strong>Floors:</strong> {building.floors}
-            </p>
-            <p>
-              <strong>Main entrance:</strong> {building.entrance}
-            </p>
-            <p>
-              <strong>Emergency exit:</strong> {building.emergencyExit}
-            </p>
-          </article>
-        ))}
+          {buildings.map((building) => (
+            <article className={building.className} key={building.id}>
+              <div className="mapIcons">
+                <span className="mapIcon entranceIcon" title="Entrance">
+                  🚪
+                </span>
+                <span className="mapIcon exitIcon" title="Emergency exit">
+                  🧯
+                </span>
+              </div>
+
+              <h3>{building.name}</h3>
+
+              <p>
+                <strong>Floors:</strong> {building.floors}
+              </p>
+
+              <p>
+                <strong>Entrance:</strong> {building.entrance}
+              </p>
+
+              <p>
+                <strong>Emergency exit:</strong> {building.emergencyExit}
+              </p>
+            </article>
+          ))}
+        </div>
+
+        <div className="mapLegend" aria-label="Map key">
+          <p>
+            <span>🚪</span> Main entrance
+          </p>
+          <p>
+            <span>🧯</span> Emergency exit
+          </p>
+          <p>
+            <span className="legendPath"></span> Student footpath
+          </p>
+        </div>
       </section>
 
       <section aria-labelledby="building-details-heading">
-        <h2 id="building-details-heading">Building details</h2>
+        <h2 id="building-details-heading">Building subject details</h2>
 
         <div className="eventGrid">
           {buildings.map((building) => (
@@ -96,9 +122,11 @@ export default function CampusMapPage() {
               <p>
                 <strong>Emergency exit:</strong> {building.emergencyExit}
               </p>
+
               <p>
                 <strong>Subjects:</strong>
               </p>
+
               <ul>
                 {building.subjects.map((subject) => (
                   <li key={subject}>{subject}</li>
