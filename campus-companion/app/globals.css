@@ -396,3 +396,15 @@ hr {
     transform: none;
   }
 }
+.siteFooter {
+  margin-top: 3rem;
+  padding: 2rem 1.25rem;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+}
+
+.siteFooter p {
+  color: white;
+  margin: 0.3rem 0;
+}
