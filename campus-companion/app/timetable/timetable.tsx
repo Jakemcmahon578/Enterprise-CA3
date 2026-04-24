@@ -1,21 +1,70 @@
 const timetable = [
   {
     day: "Monday",
-    time: "09:00 - 10:30",
-    module: "Web Development",
-    room: "Room B12"
+    lessons: [
+      {
+        time: "09:00 - 10:30",
+        module: "Web Development",
+        room: "Room B12",
+        tutor: "Fictional Tutor A",
+        notes: "Introduction to HTML, CSS, and accessible page structure."
+      },
+      {
+        time: "13:00 - 14:30",
+        module: "Study Skills",
+        room: "Library Room 2",
+        tutor: "Fictional Tutor B",
+        notes: "Planning coursework, managing deadlines, and using the library."
+      }
+    ]
   },
   {
     day: "Tuesday",
-    time: "11:00 - 12:30",
-    module: "Database Systems",
-    room: "Computer Lab 3"
+    lessons: [
+      {
+        time: "10:00 - 11:30",
+        module: "Database Systems",
+        room: "Computer Lab 3",
+        tutor: "Fictional Tutor C",
+        notes: "Basic tables, records, and fictional student data examples."
+      }
+    ]
   },
   {
     day: "Wednesday",
-    time: "14:00 - 15:30",
-    module: "Software Design",
-    room: "Room A04"
+    lessons: [
+      {
+        time: "14:00 - 15:30",
+        module: "Software Design",
+        room: "Room A04",
+        tutor: "Fictional Tutor D",
+        notes: "Planning app features using wireframes and user needs."
+      }
+    ]
+  },
+  {
+    day: "Thursday",
+    lessons: [
+      {
+        time: "09:30 - 11:00",
+        module: "Programming Fundamentals",
+        room: "Computer Lab 1",
+        tutor: "Fictional Tutor E",
+        notes: "TypeScript basics, variables, functions, and simple logic."
+      }
+    ]
+  },
+  {
+    day: "Friday",
+    lessons: [
+      {
+        time: "12:00 - 13:00",
+        module: "Project Check-in",
+        room: "Room C08",
+        tutor: "Fictional Tutor F",
+        notes: "Weekly progress review for the Campus Companion project."
+      }
+    ]
   }
 ];
 
@@ -23,26 +72,56 @@ export default function TimetablePage() {
   return (
     <main className="container">
       <section className="hero">
-        <p className="eyebrow">Campus Companion</p>
-        <h1>Student timetable</h1>
-        <p>A fictional weekly timetable for a first-year student.</p>
+        <p className="eyebrow">Student Timetable</p>
+        <h1>Weekly timetable</h1>
+        <p>
+          View a fictional first-year student timetable to help organise classes,
+          study sessions, and project work.
+        </p>
       </section>
 
-      <section className="eventGrid" aria-label="Weekly timetable">
-        {timetable.map((lesson) => (
-          <article className="card" key={`${lesson.day}-${lesson.time}`}>
-            <h2>{lesson.day}</h2>
-            <p>
-              <strong>Time:</strong> {lesson.time}
-            </p>
-            <p>
-              <strong>Module:</strong> {lesson.module}
-            </p>
-            <p>
-              <strong>Room:</strong> {lesson.room}
-            </p>
-          </article>
-        ))}
+      <section className="card" aria-labelledby="timetable-help-heading">
+        <h2 id="timetable-help-heading">How this helps students</h2>
+        <p>
+          A clear timetable helps students manage their week, avoid missed
+          lessons, and plan independent study time around lectures and workshops.
+        </p>
+      </section>
+
+      <section aria-labelledby="weekly-timetable-heading">
+        <h2 id="weekly-timetable-heading">This week</h2>
+
+        <div className="eventGrid">
+          {timetable.map((day) => (
+            <article className="card" key={day.day}>
+              <h3>{day.day}</h3>
+
+              {day.lessons.map((lesson) => (
+                <div key={`${day.day}-${lesson.time}`}>
+                  <p>
+                    <strong>Time:</strong> {lesson.time}
+                  </p>
+
+                  <p>
+                    <strong>Module:</strong> {lesson.module}
+                  </p>
+
+                  <p>
+                    <strong>Room:</strong> {lesson.room}
+                  </p>
+
+                  <p>
+                    <strong>Tutor:</strong> {lesson.tutor}
+                  </p>
+
+                  <p>{lesson.notes}</p>
+
+                  <hr />
+                </div>
+              ))}
+            </article>
+          ))}
+        </div>
       </section>
     </main>
   );
