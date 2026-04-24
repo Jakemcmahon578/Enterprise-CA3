@@ -719,3 +719,217 @@ body.theme-contrast textarea {
     writing-mode: horizontal-tb;
   }
 }
+/* NOTIFICATIONS */
+
+.unreadCard {
+  border-left: 6px solid var(--primary);
+  background: #eff6ff;
+}
+
+body.theme-dark .unreadCard {
+  background: #172554;
+}
+
+/* CLEAN INTERACTIVE CAMPUS MAP */
+
+.mapWrapper {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.campusMap {
+  position: relative;
+  min-height: 720px;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    linear-gradient(rgba(255, 255, 255, 0.5) 1px, transparent 1px),
+    #dcfce7;
+  background-size: 40px 40px;
+  border: 3px solid #94a3b8;
+  border-radius: 1.25rem;
+  overflow: hidden;
+}
+
+.path {
+  position: absolute;
+  background: #d6d3d1;
+  border: 3px dashed #78716c;
+  color: #292524;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  text-align: center;
+}
+
+.horizontalPath {
+  left: 8%;
+  right: 8%;
+  top: 48%;
+  height: 52px;
+  border-radius: 999px;
+}
+
+.verticalPath {
+  top: 9%;
+  bottom: 9%;
+  left: 48%;
+  width: 52px;
+  border-radius: 999px;
+  writing-mode: vertical-rl;
+}
+
+.mapBuilding {
+  position: absolute;
+  width: 230px;
+  min-height: 130px;
+  background: white;
+  border: 3px solid var(--primary);
+  border-radius: 1rem;
+  padding: 1rem;
+  z-index: 3;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.15);
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: #0f172a;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.mapBuilding:hover,
+.mapBuilding:focus-visible,
+.selectedBuilding {
+  outline: 4px solid var(--focus);
+  outline-offset: 4px;
+  transform: scale(1.03);
+}
+
+.tech {
+  top: 8%;
+  left: 7%;
+}
+
+.science {
+  top: 8%;
+  right: 7%;
+}
+
+.business {
+  bottom: 8%;
+  left: 7%;
+}
+
+.arts {
+  bottom: 8%;
+  right: 7%;
+}
+
+.library {
+  top: 38%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.library:hover,
+.library:focus-visible,
+.library.selectedBuilding {
+  transform: translateX(-50%) scale(1.03);
+}
+
+.mapIcons {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mapIcon {
+  width: 38px;
+  height: 38px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.entranceIcon {
+  background: #dcfce7;
+  border: 2px solid #15803d;
+}
+
+.exitIcon {
+  background: #fee2e2;
+  border: 2px solid #b91c1c;
+}
+
+.mapLegend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.mapLegend p {
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 0.5rem 0.8rem;
+  margin: 0;
+  font-weight: 700;
+}
+
+.legendPath {
+  display: inline-block;
+  width: 40px;
+  height: 12px;
+  background: #d6d3d1;
+  border: 2px dashed #78716c;
+  border-radius: 999px;
+}
+
+body.theme-dark .mapWrapper {
+  background: var(--surface);
+}
+
+body.theme-dark .mapBuilding {
+  background: #0f172a;
+  color: white;
+}
+
+/* MOBILE MAP */
+
+@media (max-width: 900px) {
+  .campusMap {
+    min-height: auto;
+    display: grid;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .path,
+  .mapBuilding {
+    position: static;
+    width: 100%;
+    transform: none;
+  }
+
+  .horizontalPath,
+  .verticalPath {
+    height: auto;
+    width: 100%;
+    min-height: 50px;
+    writing-mode: horizontal-tb;
+  }
+
+  .library,
+  .library:hover,
+  .library:focus-visible,
+  .library.selectedBuilding {
+    transform: none;
+  }
+}

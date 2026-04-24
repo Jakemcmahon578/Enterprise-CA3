@@ -26,11 +26,13 @@ export default function RootLayout({
             </Link>
 
             <div className="navLinks">
+              <Link href="/search">Search</Link>
+              <Link href="/notifications">Notifications</Link>
               <Link href="/events">Events</Link>
               <Link href="/timetable">Timetable</Link>
               <Link href="/canteen">Canteen</Link>
-              <Link href="/map">Campus Map</Link>
-              <Link href="/lost&found">Lost&Found</Link>
+              <Link href="/campus-map">Campus Map</Link>
+              <Link href="/lost&found">lost&found</Link>
               <Link href="/accessibility">Accessibility</Link>
               <Link href="/settings">Settings</Link>
             </div>

@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 const buildings = [
   {
     id: "tech",
@@ -6,7 +10,7 @@ const buildings = [
     entrance: "North Entrance",
     emergencyExit: "East Fire Exit",
     floors: 4,
-    className: "mapBuilding tech"
+    positionClass: "tech"
   },
   {
     id: "science",
@@ -15,7 +19,7 @@ const buildings = [
     entrance: "East Entrance",
     emergencyExit: "South Fire Exit",
     floors: 3,
-    className: "mapBuilding science"
+    positionClass: "science"
   },
   {
     id: "business",
@@ -24,7 +28,7 @@ const buildings = [
     entrance: "Main Entrance",
     emergencyExit: "West Fire Exit",
     floors: 5,
-    className: "mapBuilding business"
+    positionClass: "business"
   },
   {
     id: "arts",
@@ -33,7 +37,7 @@ const buildings = [
     entrance: "West Entrance",
     emergencyExit: "Studio Fire Exit",
     floors: 2,
-    className: "mapBuilding arts"
+    positionClass: "arts"
   },
   {
     id: "library",
@@ -42,99 +46,89 @@ const buildings = [
     entrance: "South Entrance",
     emergencyExit: "Quiet Zone Exit",
     floors: 3,
-    className: "mapBuilding library"
+    positionClass: "library"
   }
 ];
 
 export default function CampusMapPage() {
+  const [selectedBuildingId, setSelectedBuildingId] = useState("tech");
+
+  const selectedBuilding =
+    buildings.find((building) => building.id === selectedBuildingId) ??
+    buildings[0];
+
   return (
     <main className="container">
       <section className="hero">
         <p className="eyebrow">Campus Navigation</p>
-        <h1>Campus map</h1>
+        <h1>Interactive campus map</h1>
         <p>
-          A fictional campus map showing buildings, paths, entrances, emergency
-          exits, floors, and subjects.
+          Select a fictional campus building to view subjects, entrances,
+          emergency exits, floors, and connected paths.
         </p>
       </section>
 
       <section className="mapWrapper" aria-labelledby="map-heading">
-        <h2 id="map-heading">Visual campus layout</h2>
+        <h2 id="map-heading">Campus layout</h2>
 
-        <div className="campusMap" aria-label="Campus map with buildings and paths">
+        <div className="campusMap" aria-label="Interactive fictional campus map">
           <div className="path horizontalPath">Main Footpath</div>
           <div className="path verticalPath">Central Path</div>
 
           {buildings.map((building) => (
-            <article className={building.className} key={building.id}>
-              <div className="mapIcons">
-                <span className="mapIcon entranceIcon" title="Entrance">
-                  🚪
-                </span>
-                <span className="mapIcon exitIcon" title="Emergency exit">
-                  🧯
-                </span>
-              </div>
+            <button
+              type="button"
+              key={building.id}
+              className={`mapBuilding ${building.positionClass} ${
+                selectedBuildingId === building.id ? "selectedBuilding" : ""
+              }`}
+              onClick={() => setSelectedBuildingId(building.id)}
+              aria-pressed={selectedBuildingId === building.id}
+            >
+              <span className="mapIcons" aria-hidden="true">
+                <span className="mapIcon entranceIcon">🚪</span>
+                <span className="mapIcon exitIcon">🧯</span>
+              </span>
 
-              <h3>{building.name}</h3>
-
-              <p>
-                <strong>Floors:</strong> {building.floors}
-              </p>
-
-              <p>
-                <strong>Entrance:</strong> {building.entrance}
-              </p>
-
-              <p>
-                <strong>Emergency exit:</strong> {building.emergencyExit}
-              </p>
-            </article>
+              <strong>{building.name}</strong>
+              <span>{building.floors} floors</span>
+            </button>
           ))}
         </div>
 
-        <div className="mapLegend" aria-label="Map key">
-          <p>
-            <span>🚪</span> Main entrance
-          </p>
-          <p>
-            <span>🧯</span> Emergency exit
-          </p>
+        <div className="mapLegend">
+          <p>🚪 Main entrance</p>
+          <p>🧯 Emergency exit</p>
           <p>
             <span className="legendPath"></span> Student footpath
           </p>
         </div>
       </section>
 
-      <section aria-labelledby="building-details-heading">
-        <h2 id="building-details-heading">Building subject details</h2>
+      <section className="card" aria-labelledby="selected-building-heading">
+        <h2 id="selected-building-heading">{selectedBuilding.name}</h2>
 
-        <div className="eventGrid">
-          {buildings.map((building) => (
-            <article className="card" key={building.name}>
-              <h3>{building.name}</h3>
-              <p>
-                <strong>Floors:</strong> {building.floors}
-              </p>
-              <p>
-                <strong>Entrance:</strong> {building.entrance}
-              </p>
-              <p>
-                <strong>Emergency exit:</strong> {building.emergencyExit}
-              </p>
+        <p>
+          <strong>Floors:</strong> {selectedBuilding.floors}
+        </p>
 
-              <p>
-                <strong>Subjects:</strong>
-              </p>
+        <p>
+          <strong>Main entrance:</strong> {selectedBuilding.entrance}
+        </p>
 
-              <ul>
-                {building.subjects.map((subject) => (
-                  <li key={subject}>{subject}</li>
-                ))}
-              </ul>
-            </article>
+        <p>
+          <strong>Emergency exit:</strong> {selectedBuilding.emergencyExit}
+        </p>
+
+        <p>
+          <strong>Subjects in this building:</strong>
+        </p>
+
+        <ul>
+          {selectedBuilding.subjects.map((subject) => (
+            <li key={subject}>{subject}</li>
           ))}
-        </div>
+        </ul>
       </section>
     </main>
   );
