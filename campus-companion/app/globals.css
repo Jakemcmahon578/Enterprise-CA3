@@ -204,17 +204,6 @@ textarea:focus-visible {
   color: white;
 }
 
-@media (max-width: 850px) {
-  .nav {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .navLinks {
-    justify-content: flex-start;
-  }
-}
-
 /* MAIN LAYOUT */
 
 .container {
@@ -268,6 +257,12 @@ h2 {
 h3 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+h4 {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
   color: var(--text);
 }
 
@@ -408,11 +403,60 @@ input[type="checkbox"] {
   background: rgba(37, 99, 235, 0.08);
 }
 
-/* CAMPUS MAP */
+/* TIMETABLE PAGE */
 
-.mapWrapper {
-  margin-bottom: 2rem;
+.timetableToolbar {
+  max-width: 520px;
 }
+
+.timetableGrid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.dayCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 1.1rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+.dayCard h3 {
+  margin-top: 0;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.lessonList {
+  display: grid;
+  gap: 1rem;
+}
+
+.lessonItem {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: rgba(37, 99, 235, 0.05);
+}
+
+.lessonTime {
+  font-weight: 900;
+  color: var(--primary-dark);
+}
+
+.lessonContent p {
+  margin: 0.35rem 0;
+}
+
+.lessonContent .button {
+  margin-top: 1rem;
+}
+
+/* CAMPUS MAP */
 
 .mapWrapper {
   margin-bottom: 2rem;
@@ -599,33 +643,6 @@ input[type="checkbox"] {
   font-weight: 800;
 }
 
-/* Mobile map */
-
-@media (max-width: 900px) {
-  .campusMap {
-    min-height: auto;
-    display: grid;
-    gap: 1rem;
-    padding: 1rem;
-  }
-
-  .path,
-  .connector,
-  .mapBuilding,
-  .library {
-    position: static;
-    width: 100%;
-    height: auto;
-    transform: none;
-  }
-
-  .horizontalPath,
-  .verticalPath {
-    min-height: 50px;
-    writing-mode: horizontal-tb;
-  }
-}
-
 /* SETTINGS */
 
 .settingsGrid {
@@ -684,16 +701,22 @@ body.theme-contrast textarea {
 
   .nav {
     padding: 1rem;
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .navLinks {
-    grid-template-columns: repeat(2, 1fr);
+    justify-content: flex-start;
   }
 
   .hero,
   .card,
   .mapWrapper {
     padding: 1.5rem;
+  }
+
+  .lessonItem {
+    grid-template-columns: 1fr;
   }
 
   .campusMap {
@@ -704,27 +727,23 @@ body.theme-contrast textarea {
   }
 
   .path,
+  .connector,
   .mapBuilding,
   .library {
     position: static;
     width: 100%;
+    height: auto;
     transform: none;
   }
 
   .horizontalPath,
   .verticalPath {
     min-height: 50px;
-    height: auto;
-    width: 100%;
     writing-mode: horizontal-tb;
   }
 }
 
 @media (max-width: 520px) {
-  .navLinks {
-    grid-template-columns: 1fr;
-  }
-
   h1 {
     font-size: 2rem;
   }
