@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { addNotification } from "@/lib/notifications";
+
 const timetable = [
   {
     day: "Monday",
@@ -69,6 +74,18 @@ const timetable = [
 ];
 
 export default function TimetablePage() {
+  const [savedMessage, setSavedMessage] = useState("");
+
+  function saveLesson(day: string, lesson: (typeof timetable)[number]["lessons"][number]) {
+    addNotification({
+      title: `Class reminder: ${lesson.module}`,
+      message: `${lesson.module} is on ${day} at ${lesson.time} in ${lesson.room}.`,
+      type: "Timetable"
+    });
+
+    setSavedMessage(`${lesson.module} was added to Notifications.`);
+  }
+
   return (
     <main className="container">
       <section className="hero">
@@ -80,13 +97,19 @@ export default function TimetablePage() {
         </p>
       </section>
 
-      <section className="card" aria-labelledby="timetable-help-heading">
-        <h2 id="timetable-help-heading">How this helps students</h2>
+      <section className="card">
+        <h2>How this helps students</h2>
         <p>
           A clear timetable helps students manage their week, avoid missed
           lessons, and plan independent study time around lectures and workshops.
         </p>
       </section>
+
+      {savedMessage && (
+        <p className="successMessage" role="status">
+          {savedMessage}
+        </p>
+      )}
 
       <section aria-labelledby="weekly-timetable-heading">
         <h2 id="weekly-timetable-heading">This week</h2>
@@ -115,6 +138,14 @@ export default function TimetablePage() {
                   </p>
 
                   <p>{lesson.notes}</p>
+
+                  <button
+                    type="button"
+                    className="button"
+                    onClick={() => saveLesson(day.day, lesson)}
+                  >
+                    Add class reminder
+                  </button>
 
                   <hr />
                 </div>

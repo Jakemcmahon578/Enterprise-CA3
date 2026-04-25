@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { addNotification } from "@/lib/notifications";
+
 const events = [
   {
     title: "Archery Club Taster Session",
@@ -68,6 +73,18 @@ const events = [
 ];
 
 export default function EventsPage() {
+  const [savedMessage, setSavedMessage] = useState("");
+
+  function saveEvent(title: string, date: string, time: string) {
+    addNotification({
+      title: `Saved event: ${title}`,
+      message: `${title} has been saved as a reminder for ${date} at ${time}.`,
+      type: "Event"
+    });
+
+    setSavedMessage(`${title} was added to Notifications.`);
+  }
+
   return (
     <main className="container">
       <section className="hero">
@@ -80,14 +97,19 @@ export default function EventsPage() {
         </p>
       </section>
 
-      <section className="card" aria-labelledby="why-events-heading">
-        <h2 id="why-events-heading">Why attend events?</h2>
+      <section className="card">
+        <h2>Why attend events?</h2>
         <p>
           College events help students build confidence, meet new people, learn
-          skills, and take breaks from academic work. All events listed here use
-          fictional data only.
+          skills, and take breaks from academic work.
         </p>
       </section>
+
+      {savedMessage && (
+        <p className="successMessage" role="status">
+          {savedMessage}
+        </p>
+      )}
 
       <section aria-labelledby="events-list-heading">
         <h2 id="events-list-heading">Upcoming college events</h2>
@@ -116,8 +138,12 @@ export default function EventsPage() {
                 <strong>Accessibility:</strong> {event.accessibility}
               </p>
 
-              <button type="button" className="button">
-                Save event
+              <button
+                type="button"
+                className="button"
+                onClick={() => saveEvent(event.title, event.date, event.time)}
+              >
+                Save event reminder
               </button>
             </article>
           ))}

@@ -1,8 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import { addNotification } from "../../lib/notifications";
+const campusLocations = [
+  "Tech Building",
+  "Science Block",
+  "Business Centre",
+  "Arts Building",
+  "Library & Study Hub",
+  "Sports Hall",
+  "Student Union",
+  "Canteen Lounge"
+];
 
-const lostItems = [
+const foundItems = [
   {
     id: "item-001",
     item: "Black backpack",
@@ -23,21 +34,73 @@ const lostItems = [
     foundAt: "Tech Building",
     date: "Wednesday 25 September",
     description: "Green notebook labelled Web Development."
-  },
-  {
-    id: "item-004",
-    item: "Wireless headphones",
-    foundAt: "Canteen Lounge",
-    date: "Thursday 26 September",
-    description: "White wireless headphones in a small case."
   }
 ];
 
 export default function LostFoundPage() {
-  const [claimMessage, setClaimMessage] = useState("");
+  const [lostItemName, setLostItemName] = useState("");
+  const [lostLocation, setLostLocation] = useState(campusLocations[0]);
+  const [lostDescription, setLostDescription] = useState("");
+  const [reportedItems, setReportedItems] = useState<
+    {
+      id: string;
+      item: string;
+      lostAt: string;
+      description: string;
+      status: "Not found yet" | "Found";
+    }[]
+  >([]);
+  const [message, setMessage] = useState("");
 
-  function claimItem(itemName: string) {
-    setClaimMessage(`Claim request started for: ${itemName}. Please contact the help desk.`);
+  function submitLostItem(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const newItem = {
+      id: crypto.randomUUID(),
+      item: lostItemName,
+      lostAt: lostLocation,
+      description: lostDescription,
+      status: "Not found yet" as const
+    };
+
+    setReportedItems([newItem, ...reportedItems]);
+
+    addNotification({
+      title: `Lost item reported: ${lostItemName}`,
+      message: `${lostItemName} was reported lost at ${lostLocation}.`,
+      type: "Lost & Found"
+    });
+
+    setMessage(`${lostItemName} was reported and added to Notifications.`);
+    setLostItemName("");
+    setLostDescription("");
+    setLostLocation(campusLocations[0]);
+  }
+
+  function markAsFound(itemId: string, itemName: string) {
+    const updated = reportedItems.map((item) =>
+      item.id === itemId ? { ...item, status: "Found" as const } : item
+    );
+
+    setReportedItems(updated);
+
+    addNotification({
+      title: `Lost item found: ${itemName}`,
+      message: `${itemName} has been marked as found. Please contact the Lost & Found desk.`,
+      type: "Lost & Found"
+    });
+
+    setMessage(`${itemName} was marked as found and added to Notifications.`);
+  }
+
+  function claimFoundItem(itemName: string) {
+    addNotification({
+      title: `Claim request: ${itemName}`,
+      message: `You started a claim request for ${itemName}. Please contact the Lost & Found help desk.`,
+      type: "Lost & Found"
+    });
+
+    setMessage(`${itemName} claim was added to Notifications.`);
   }
 
   return (
@@ -46,7 +109,8 @@ export default function LostFoundPage() {
         <p className="eyebrow">Student Support</p>
         <h1>Lost and found</h1>
         <p>
-          View fictional items currently held by the campus lost and found team.
+          Report a lost item, choose where it was lost, and check fictional items
+          currently available to claim.
         </p>
       </section>
 
@@ -63,32 +127,111 @@ export default function LostFoundPage() {
         </p>
       </section>
 
-      {claimMessage && (
+      {message && (
         <p className="successMessage" role="status">
-          {claimMessage}
+          {message}
         </p>
       )}
 
-      <section aria-labelledby="lost-items-heading">
-        <h2 id="lost-items-heading">Items available to claim</h2>
+      <section className="card" aria-labelledby="report-lost-item-heading">
+        <h2 id="report-lost-item-heading">Report a lost item</h2>
+
+        <form onSubmit={submitLostItem}>
+          <label htmlFor="lost-item-name">Item name</label>
+          <input
+            id="lost-item-name"
+            type="text"
+            value={lostItemName}
+            onChange={(event) => setLostItemName(event.target.value)}
+            placeholder="Example: Black wallet"
+            required
+          />
+
+          <label htmlFor="lost-location">Where did you lose it?</label>
+          <select
+            id="lost-location"
+            value={lostLocation}
+            onChange={(event) => setLostLocation(event.target.value)}
+            required
+          >
+            {campusLocations.map((location) => (
+              <option key={location} value={location}>
+                {location}
+              </option>
+            ))}
+          </select>
+
+          <label htmlFor="lost-description">Item description</label>
+          <textarea
+            id="lost-description"
+            value={lostDescription}
+            onChange={(event) => setLostDescription(event.target.value)}
+            placeholder="Describe the item, colour, brand, or any unique details."
+            required
+          />
+
+          <button type="submit" className="button">
+            Report lost item
+          </button>
+        </form>
+      </section>
+
+      <section aria-labelledby="reported-items-heading">
+        <h2 id="reported-items-heading">Your reported lost items</h2>
+
+        {reportedItems.length === 0 && (
+          <p role="status">You have not reported any lost items yet.</p>
+        )}
 
         <div className="eventGrid">
-          {lostItems.map((item) => (
+          {reportedItems.map((item) => (
+            <article className="card" key={item.id}>
+              <p className="category">{item.status}</p>
+              <h3>{item.item}</h3>
+
+              <p>
+                <strong>Lost at:</strong> {item.lostAt}
+              </p>
+
+              <p>{item.description}</p>
+
+              {item.status !== "Found" && (
+                <button
+                  type="button"
+                  className="button"
+                  onClick={() => markAsFound(item.id, item.item)}
+                >
+                  Mark as found
+                </button>
+              )}
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section aria-labelledby="found-items-heading">
+        <h2 id="found-items-heading">Items currently available to claim</h2>
+
+        <div className="eventGrid">
+          {foundItems.map((item) => (
             <article className="card" key={item.id}>
               <p className="category">Found item</p>
               <h3>{item.item}</h3>
+
               <p>
                 <strong>Found at:</strong> {item.foundAt}
               </p>
+
               <p>
                 <strong>Date found:</strong> {item.date}
               </p>
+
               <p>{item.description}</p>
 
               <button
                 type="button"
                 className="button"
-                onClick={() => claimItem(item.item)}
+                onClick={() => claimFoundItem(item.item)}
               >
                 Claim this item
               </button>

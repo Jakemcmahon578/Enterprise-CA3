@@ -1,44 +1,31 @@
 "use client";
 
-import { useState } from "react";
-
-const defaultNotifications = [
-  {
-    id: 1,
-    title: "Web Development class",
-    message: "You have Web Development in Room B12 at 09:00.",
-    type: "Timetable",
-    read: false
-  },
-  {
-    id: 2,
-    title: "Archery Club reminder",
-    message: "Archery Club Taster Session starts tomorrow at 15:00.",
-    type: "Event",
-    read: false
-  },
-  {
-    id: 3,
-    title: "Canteen menu updated",
-    message: "Friday menu includes fish fingers and vegetarian nuggets.",
-    type: "Canteen",
-    read: true
-  }
-];
+import { useEffect, useState } from "react";
+import {
+  CampusNotification,
+  getNotifications,
+  saveNotifications
+} from "@/lib/notifications";
 
 export default function NotificationsPage() {
-  const [notifications, setNotifications] = useState(defaultNotifications);
+  const [notifications, setNotifications] = useState<CampusNotification[]>([]);
 
-  function markAsRead(id: number) {
-    setNotifications((current) =>
-      current.map((notification) =>
-        notification.id === id ? { ...notification, read: true } : notification
-      )
+  useEffect(() => {
+    setNotifications(getNotifications());
+  }, []);
+
+  function markAsRead(id: string) {
+    const updated = notifications.map((item) =>
+      item.id === id ? { ...item, read: true } : item
     );
+
+    setNotifications(updated);
+    saveNotifications(updated);
   }
 
   function clearAll() {
     setNotifications([]);
+    saveNotifications([]);
   }
 
   const unreadCount = notifications.filter((item) => !item.read).length;
@@ -49,8 +36,8 @@ export default function NotificationsPage() {
         <p className="eyebrow">Reminders</p>
         <h1>Notifications</h1>
         <p>
-          View fictional reminders for classes, society events, canteen updates,
-          and student support.
+          Saved events, class reminders, canteen meals, and lost item updates
+          appear here.
         </p>
       </section>
 
@@ -68,6 +55,10 @@ export default function NotificationsPage() {
 
       <section aria-labelledby="notification-list-heading">
         <h2 id="notification-list-heading">Your reminders</h2>
+
+        {notifications.length === 0 && (
+          <p role="status">You have no notifications yet.</p>
+        )}
 
         <div className="eventGrid">
           {notifications.map((notification) => (
@@ -96,10 +87,6 @@ export default function NotificationsPage() {
             </article>
           ))}
         </div>
-
-        {notifications.length === 0 && (
-          <p role="status">You have no notifications right now.</p>
-        )}
       </section>
     </main>
   );

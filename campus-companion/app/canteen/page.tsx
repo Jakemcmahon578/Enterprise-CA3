@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { addNotification } from "@/lib/notifications";
+
 const menu = [
   {
     day: "Monday",
@@ -42,6 +47,18 @@ const menu = [
 ];
 
 export default function CanteenPage() {
+  const [savedMessage, setSavedMessage] = useState("");
+
+  function saveMeal(day: string, meal: string) {
+    addNotification({
+      title: `Saved meal: ${meal}`,
+      message: `${meal} on ${day} was saved to your reminders.`,
+      type: "Canteen"
+    });
+
+    setSavedMessage(`${meal} was added to Notifications.`);
+  }
+
   return (
     <main className="container">
       <section className="hero">
@@ -53,14 +70,20 @@ export default function CanteenPage() {
         </p>
       </section>
 
-      <section className="card" aria-labelledby="canteen-info-heading">
-        <h2 id="canteen-info-heading">Food information</h2>
+      <section className="card">
+        <h2>Food information</h2>
         <p>
           This menu is fictional and used only for the Campus Companion project.
           In a real app, allergen information should be checked carefully and
           updated by trained staff.
         </p>
       </section>
+
+      {savedMessage && (
+        <p className="successMessage" role="status">
+          {savedMessage}
+        </p>
+      )}
 
       <section aria-labelledby="weekly-menu-heading">
         <h2 id="weekly-menu-heading">Weekly menu</h2>
@@ -90,8 +113,12 @@ export default function CanteenPage() {
                 <strong>Allergens:</strong> {item.allergens}
               </p>
 
-              <button type="button" className="button">
-                Save meal
+              <button
+                type="button"
+                className="button"
+                onClick={() => saveMeal(item.day, item.main)}
+              >
+                Save meal reminder
               </button>
             </article>
           ))}
