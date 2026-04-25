@@ -1,41 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { campusLocations, foundItems } from "../../data/lostitems";
 import { addNotification } from "../../lib/notifications";
-const campusLocations = [
-  "Tech Building",
-  "Science Block",
-  "Business Centre",
-  "Arts Building",
-  "Library & Study Hub",
-  "Sports Hall",
-  "Student Union",
-  "Canteen Lounge"
-];
-
-const foundItems = [
-  {
-    id: "item-001",
-    item: "Black backpack",
-    foundAt: "Library & Study Hub",
-    date: "Monday 23 September",
-    description: "Black backpack with a blue keyring attached."
-  },
-  {
-    id: "item-002",
-    item: "Water bottle",
-    foundAt: "Sports Hall",
-    date: "Tuesday 24 September",
-    description: "Silver reusable bottle found near the archery area."
-  },
-  {
-    id: "item-003",
-    item: "Student notebook",
-    foundAt: "Tech Building",
-    date: "Wednesday 25 September",
-    description: "Green notebook labelled Web Development."
-  }
-];
 
 export default function LostFoundPage() {
   const [lostItemName, setLostItemName] = useState("");

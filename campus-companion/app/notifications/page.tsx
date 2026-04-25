@@ -5,7 +5,7 @@ import {
   CampusNotification,
   getNotifications,
   saveNotifications
-} from "@/lib/notifications";
+} from "../../lib/notifications";
 
 export default function NotificationsPage() {
   const [notifications, setNotifications] = useState<CampusNotification[]>([]);

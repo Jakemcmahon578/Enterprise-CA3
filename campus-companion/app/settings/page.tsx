@@ -54,19 +54,32 @@ export default function SettingsPage() {
     }
   }, []);
 
+  function resetSettings() {
+    setTheme("theme-light");
+    setAccent("accent-blue");
+    setTextSize("text-normal");
+    setReducedMotion(false);
+  }
+
   return (
     <main className="container">
       <section className="hero">
         <p className="eyebrow">App Preferences</p>
-        <h1>Settings</h1>
+        <h1>Settings & Accessibility</h1>
         <p>
-          Change the website theme, colour variation, text size, and motion settings.
+          Adjust display, accessibility, and visual preferences including
+          contrast, text size, colours, and motion.
         </p>
       </section>
 
       <section className="settingsGrid">
         <article className="card">
-          <h2>Theme settings</h2>
+          <h2>Display and accessibility settings</h2>
+
+          <p className="accessibilityNote">
+            These settings support different accessibility needs such as low
+            vision, colour contrast sensitivity, and motion sensitivity.
+          </p>
 
           <label htmlFor="theme">Website mode</label>
           <select
@@ -112,13 +125,17 @@ export default function SettingsPage() {
             />
             Reduce animations
           </label>
+
+          <button type="button" className="button" onClick={resetSettings}>
+            Reset to default settings
+          </button>
         </article>
 
         <article className="card">
           <h2>Live preview</h2>
           <p>
-            These settings apply to the entire website. After changing them,
-            navigate to other pages to see the effect.
+            These settings apply to the entire website. Try changing the colour,
+            contrast, or text size, then visit Events, Timetable, or Campus Map.
           </p>
 
           <button type="button" className="button">
