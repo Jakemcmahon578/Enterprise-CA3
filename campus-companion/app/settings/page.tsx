@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 
 export default function SettingsPage() {
-  const [theme, setTheme] = useState("light");
-  const [textSize, setTextSize] = useState("normal");
-  const [accentColour, setAccentColour] = useState("blue");
-  const [spacing, setSpacing] = useState("normal");
+  const [theme, setTheme] = useState("theme-light");
+  const [accent, setAccent] = useState("accent-blue");
+  const [textSize, setTextSize] = useState("text-normal");
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -14,24 +13,19 @@ export default function SettingsPage() {
       "theme-light",
       "theme-dark",
       "theme-contrast",
-      "text-normal",
-      "text-large",
-      "text-extra-large",
+      "contrast-blue",
+      "contrast-purple",
       "accent-blue",
       "accent-green",
       "accent-purple",
       "accent-orange",
-      "spacing-normal",
-      "spacing-wide",
+      "text-normal",
+      "text-large",
+      "text-extra-large",
       "motion-reduced"
     );
 
-    document.body.classList.add(
-      `theme-${theme}`,
-      `text-${textSize}`,
-      `accent-${accentColour}`,
-      `spacing-${spacing}`
-    );
+    document.body.classList.add(theme, accent, textSize);
 
     if (reducedMotion) {
       document.body.classList.add("motion-reduced");
@@ -41,23 +35,21 @@ export default function SettingsPage() {
       "campusSettings",
       JSON.stringify({
         theme,
+        accent,
         textSize,
-        accentColour,
-        spacing,
         reducedMotion
       })
     );
-  }, [theme, textSize, accentColour, spacing, reducedMotion]);
+  }, [theme, accent, textSize, reducedMotion]);
 
   useEffect(() => {
-    const savedSettings = localStorage.getItem("campusSettings");
+    const saved = localStorage.getItem("campusSettings");
 
-    if (savedSettings) {
-      const parsed = JSON.parse(savedSettings);
-      setTheme(parsed.theme ?? "light");
-      setTextSize(parsed.textSize ?? "normal");
-      setAccentColour(parsed.accentColour ?? "blue");
-      setSpacing(parsed.spacing ?? "normal");
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      setTheme(parsed.theme ?? "theme-light");
+      setAccent(parsed.accent ?? "accent-blue");
+      setTextSize(parsed.textSize ?? "text-normal");
       setReducedMotion(parsed.reducedMotion ?? false);
     }
   }, []);
@@ -68,49 +60,48 @@ export default function SettingsPage() {
         <p className="eyebrow">App Preferences</p>
         <h1>Settings</h1>
         <p>
-          Change the app theme, text size, colour, spacing, and motion settings.
-          These settings apply to the whole website.
+          Change the website theme, colour variation, text size, and motion settings.
         </p>
       </section>
 
       <section className="settingsGrid">
         <article className="card">
-          <h2>Display settings</h2>
+          <h2>Theme settings</h2>
 
-          <label htmlFor="theme">App mode</label>
-          <select id="theme" value={theme} onChange={(e) => setTheme(e.target.value)}>
-            <option value="light">Light mode</option>
-            <option value="dark">Dark mode</option>
-            <option value="contrast">High contrast mode</option>
+          <label htmlFor="theme">Website mode</label>
+          <select
+            id="theme"
+            value={theme}
+            onChange={(event) => setTheme(event.target.value)}
+          >
+            <option value="theme-light">Light mode</option>
+            <option value="theme-dark">Dark mode</option>
+            <option value="theme-contrast">Black / yellow high contrast</option>
+            <option value="contrast-blue">Blue high contrast</option>
+            <option value="contrast-purple">Purple high contrast</option>
+          </select>
+
+          <label htmlFor="accent">Button and link colour</label>
+          <select
+            id="accent"
+            value={accent}
+            onChange={(event) => setAccent(event.target.value)}
+          >
+            <option value="accent-blue">Blue</option>
+            <option value="accent-green">Green</option>
+            <option value="accent-purple">Purple</option>
+            <option value="accent-orange">Orange</option>
           </select>
 
           <label htmlFor="text-size">Text size</label>
           <select
             id="text-size"
             value={textSize}
-            onChange={(e) => setTextSize(e.target.value)}
+            onChange={(event) => setTextSize(event.target.value)}
           >
-            <option value="normal">Normal</option>
-            <option value="large">Large</option>
-            <option value="extra-large">Extra large</option>
-          </select>
-
-          <label htmlFor="accent-colour">Accent colour</label>
-          <select
-            id="accent-colour"
-            value={accentColour}
-            onChange={(e) => setAccentColour(e.target.value)}
-          >
-            <option value="blue">Blue</option>
-            <option value="green">Green</option>
-            <option value="purple">Purple</option>
-            <option value="orange">Orange</option>
-          </select>
-
-          <label htmlFor="spacing">Page spacing</label>
-          <select id="spacing" value={spacing} onChange={(e) => setSpacing(e.target.value)}>
-            <option value="normal">Normal spacing</option>
-            <option value="wide">Wide spacing</option>
+            <option value="text-normal">Normal text</option>
+            <option value="text-large">Large text</option>
+            <option value="text-extra-large">Extra large text</option>
           </select>
 
           <label className="checkboxLabel">
@@ -126,9 +117,10 @@ export default function SettingsPage() {
         <article className="card">
           <h2>Live preview</h2>
           <p>
-            This preview uses the same settings as the rest of the app. Try
-            changing the options and then visit Events, Canteen, or Campus Map.
+            These settings apply to the entire website. After changing them,
+            navigate to other pages to see the effect.
           </p>
+
           <button type="button" className="button">
             Example button
           </button>
