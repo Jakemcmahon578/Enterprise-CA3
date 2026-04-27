@@ -748,3 +748,76 @@ body.theme-contrast textarea {
     font-size: 2rem;
   }
 }
+
+@media (max-width: 768px) {
+
+  .campusMap {
+    min-height: 450px;
+    width: 100%;
+    overflow: visible;
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+
+  .mapBuilding {
+    width: 160px;
+    min-height: 110px;
+    padding: 0.75rem;
+    font-size: 0.8rem;
+  }
+
+  .tech {
+    top: 5%;
+    left: 5%;
+  }
+
+  .science {
+    top: 5%;
+    right: 5%;
+  }
+
+  .business {
+    bottom: 5%;
+    left: 5%;
+  }
+
+  .arts {
+    bottom: 5%;
+    right: 5%;
+  }
+
+  .library {
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .connector {
+    width: 24px;
+    border-width: 2px;
+  }
+
+  .connectorTech,
+  .connectorScience,
+  .connectorBusiness,
+  .connectorArts {
+    height: 120px;
+  }
+
+  .connectorLibrary {
+    height: 60px;
+  }
+
+  .horizontalPath {
+    height: 36px;
+  }
+
+  .verticalPath {
+    width: 36px;
+  }
+
+  .mapLegend {
+    font-size: 0.8rem;
+    gap: 0.5rem;
+  }
+}
