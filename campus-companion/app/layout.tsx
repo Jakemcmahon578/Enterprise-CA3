@@ -32,7 +32,7 @@ export default function RootLayout({
               <Link href="/timetable">Timetable</Link>
               <Link href="/canteen">Canteen</Link>
               <Link href="/map">Campus Map</Link>
-              <Link href="/lost&found">lost & found</Link>
+              <Link href="/lost-found">lost & found</Link>
               <Link href="/settings">Settings & Accessibility</Link>
             </div>
           </nav>
