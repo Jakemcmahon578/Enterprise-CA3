@@ -922,3 +922,116 @@ body.theme-contrast .button {
     grid-template-columns: 1fr;
   }
 }
+/* =========================
+   GLOBAL LAYOUT POLISH
+========================= */
+
+.container {
+  max-width: 1180px;
+  padding: 2.25rem 1.5rem;
+}
+
+.hero {
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+
+.hero p {
+  max-width: 760px;
+}
+
+.card,
+.mapWrapper,
+.dayCard,
+.recommendationCard {
+  border-radius: 1rem;
+}
+
+.eventGrid,
+.settingsGrid,
+.mapGrid,
+.recommendationGrid,
+.mlDetailsGrid {
+  gap: 1.25rem;
+}
+
+/* Make pages feel less stretched vertically */
+
+section {
+  margin-bottom: 1.5rem;
+}
+
+.card p,
+.recommendationCard p,
+.dayCard p {
+  margin-top: 0.35rem;
+  margin-bottom: 0.7rem;
+}
+
+/* Better ML recommendations layout */
+
+.mlIntro {
+  padding: 1.75rem;
+}
+
+.recommendationGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.mlDetailsGrid {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.recommendationCard {
+  min-height: 100%;
+}
+
+/* Cleaner footer spacing */
+
+.siteFooter {
+  margin-top: 2rem;
+  padding: 1.5rem 1rem;
+}
+
+/* Better desktop navbar */
+
+.nav {
+  max-width: 1180px;
+}
+
+.navLinks {
+  gap: 0.2rem;
+}
+
+.navLinks a {
+  font-size: 0.9rem;
+  padding: 0.5rem 0.65rem;
+}
+
+/* Better responsive layout */
+
+@media (max-width: 1100px) {
+  .recommendationGrid,
+  .mlDetailsGrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .container {
+    padding: 1.5rem 1rem;
+  }
+
+  .hero,
+  .card,
+  .mapWrapper,
+  .dayCard,
+  .recommendationCard {
+    padding: 1.25rem;
+  }
+
+  .recommendationGrid,
+  .mlDetailsGrid {
+    grid-template-columns: 1fr;
+  }
+}
