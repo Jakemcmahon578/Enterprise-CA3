@@ -11,7 +11,9 @@
   --danger: #b91c1c;
 }
 
-/* RESET */
+/* =========================
+   RESET / BASE
+========================= */
 
 *,
 *::before,
@@ -31,7 +33,9 @@ body {
   line-height: 1.6;
 }
 
-/* THEMES */
+/* =========================
+   THEMES
+========================= */
 
 body.theme-dark {
   --bg: #020617;
@@ -72,7 +76,9 @@ body.contrast-purple {
   --primary-dark: #a78bfa;
 }
 
-/* ACCENT COLOURS */
+/* =========================
+   ACCENT COLOURS
+========================= */
 
 body.accent-blue {
   --primary: #2563eb;
@@ -94,7 +100,9 @@ body.accent-orange {
   --primary-dark: #9a3412;
 }
 
-/* TEXT SIZE */
+/* =========================
+   TEXT SIZE / MOTION
+========================= */
 
 body.text-large {
   font-size: 18px;
@@ -103,8 +111,6 @@ body.text-large {
 body.text-extra-large {
   font-size: 20px;
 }
-
-/* REDUCED MOTION */
 
 body.motion-reduced *,
 body.motion-reduced *::before,
@@ -122,7 +128,9 @@ body.motion-reduced *::after {
   }
 }
 
-/* ACCESSIBILITY */
+/* =========================
+   ACCESSIBILITY
+========================= */
 
 a:focus-visible,
 button:focus-visible,
@@ -149,7 +157,9 @@ textarea:focus-visible {
   top: 1rem;
 }
 
-/* HEADER / NAVIGATION */
+/* =========================
+   HEADER / NAVIGATION
+========================= */
 
 .siteHeader {
   background: var(--surface);
@@ -180,9 +190,9 @@ textarea:focus-visible {
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  flex-wrap: wrap;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.35rem;
 }
 
 .navLinks a {
@@ -192,6 +202,7 @@ textarea:focus-visible {
   padding: 0.55rem 0.75rem;
   border-radius: 0.6rem;
   font-size: 0.95rem;
+  white-space: nowrap;
 }
 
 .navLinks a:hover {
@@ -201,22 +212,27 @@ textarea:focus-visible {
 
 .navLinks a:focus-visible {
   background: var(--primary);
-  color: white;
+  color: #ffffff;
 }
 
-/* MAIN LAYOUT */
+/* =========================
+   MAIN LAYOUT
+========================= */
 
 .container {
   max-width: 1250px;
   margin: 0 auto;
   padding: 3rem 1.5rem;
+  min-height: 70vh;
 }
 
 section {
   margin-bottom: 2rem;
 }
 
-/* HERO / CARDS */
+/* =========================
+   HERO / CARDS
+========================= */
 
 .hero,
 .card,
@@ -229,7 +245,21 @@ section {
 }
 
 .hero {
+  margin-bottom: 2.5rem;
   background: linear-gradient(135deg, var(--surface), rgba(37, 99, 235, 0.08));
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  line-height: 1.7;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
 }
 
 body.theme-dark .hero,
@@ -239,7 +269,9 @@ body.contrast-purple .hero {
   background: var(--surface);
 }
 
-/* TYPOGRAPHY */
+/* =========================
+   TYPOGRAPHY
+========================= */
 
 h1 {
   font-size: clamp(2.1rem, 5vw, 3.4rem);
@@ -283,29 +315,34 @@ strong {
   letter-spacing: 0.08em;
 }
 
-/* GRIDS */
+/* =========================
+   GRIDS
+========================= */
 
 .eventGrid,
 .settingsGrid,
-.mapGrid {
+.mapGrid,
+.mlDetailsGrid,
+.recommendationGrid {
   display: grid;
   gap: 1.5rem;
+  align-items: stretch;
+}
+
+.eventGrid,
+.settingsGrid,
+.mapGrid,
+.mlDetailsGrid {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
-/* CARDS */
-
-.card {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.recommendationGrid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
-}
+/* =========================
+   BADGES / STATES
+========================= */
 
 .category {
   width: fit-content;
@@ -319,14 +356,39 @@ strong {
   margin-bottom: 0.75rem;
 }
 
-/* BUTTONS */
+.accessibilityNote {
+  background: rgba(37, 99, 235, 0.08);
+  border-left: 5px solid var(--primary);
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.successMessage {
+  color: var(--success);
+  font-weight: 900;
+}
+
+.warningMessage {
+  color: #b45309;
+  font-weight: 900;
+}
+
+.unreadCard {
+  border-left: 6px solid var(--primary);
+  background: rgba(37, 99, 235, 0.08);
+}
+
+/* =========================
+   BUTTONS / FORMS
+========================= */
 
 .button {
   display: inline-block;
   margin-top: auto;
   min-height: 44px;
   background: var(--primary);
-  color: white;
+  color: #ffffff;
   border: none;
   border-radius: 0.7rem;
   padding: 0.75rem 1rem;
@@ -340,12 +402,6 @@ strong {
 .button:hover {
   background: var(--primary-dark);
 }
-
-body.theme-contrast .button {
-  color: #000000;
-}
-
-/* FORMS */
 
 label {
   display: block;
@@ -378,32 +434,9 @@ input[type="checkbox"] {
   align-items: center;
 }
 
-/* INFO STATES */
-
-.accessibilityNote {
-  background: rgba(37, 99, 235, 0.08);
-  border-left: 5px solid var(--primary);
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  margin-top: 0.75rem;
-}
-
-.successMessage {
-  color: var(--success);
-  font-weight: 900;
-}
-
-.warningMessage {
-  color: #b45309;
-  font-weight: 900;
-}
-
-.unreadCard {
-  border-left: 6px solid var(--primary);
-  background: rgba(37, 99, 235, 0.08);
-}
-
-/* TIMETABLE PAGE */
+/* =========================
+   TIMETABLE PAGE
+========================= */
 
 .timetableToolbar {
   max-width: 520px;
@@ -456,7 +489,9 @@ input[type="checkbox"] {
   margin-top: 1rem;
 }
 
-/* CAMPUS MAP */
+/* =========================
+   CAMPUS MAP
+========================= */
 
 .mapWrapper {
   margin-bottom: 2rem;
@@ -470,8 +505,6 @@ input[type="checkbox"] {
   border-radius: 1rem;
   overflow: hidden;
 }
-
-/* Main paths */
 
 .path {
   position: absolute;
@@ -502,8 +535,6 @@ input[type="checkbox"] {
   border-radius: 999px;
   writing-mode: vertical-rl;
 }
-
-/* Connecting paths from main footpath to entrances */
 
 .connector {
   position: absolute;
@@ -547,8 +578,6 @@ input[type="checkbox"] {
   height: 90px;
   transform: translateX(-50%);
 }
-
-/* Buildings */
 
 .mapBuilding {
   position: absolute;
@@ -599,8 +628,6 @@ input[type="checkbox"] {
   transform: translateX(-50%);
 }
 
-/* Entrance and exit icons */
-
 .mapIcons {
   display: flex;
   justify-content: space-between;
@@ -643,28 +670,84 @@ input[type="checkbox"] {
   font-weight: 800;
 }
 
-/* SETTINGS */
+/* =========================
+   ML RECOMMENDATIONS PAGE
+========================= */
+
+.mlIntro {
+  margin-bottom: 1.5rem;
+}
+
+.recommendationCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-top: 6px solid var(--primary);
+  border-radius: 1.1rem;
+  padding: 1.5rem;
+  line-height: 1.7;
+  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
+}
+
+.recommendationCard h3 {
+  margin-top: 0.5rem;
+}
+
+.scoreWrapper {
+  margin-top: 1rem;
+}
+
+.scoreHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.scoreBar {
+  height: 14px;
+  background: rgba(37, 99, 235, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.scoreFill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+body.theme-dark .scoreBar {
+  background: #1e293b;
+}
+
+/* =========================
+   SETTINGS PAGE
+========================= */
 
 .settingsGrid {
   align-items: start;
 }
 
-/* FOOTER */
+/* =========================
+   FOOTER
+========================= */
 
 .siteFooter {
   margin-top: 3rem;
   padding: 2rem 1.25rem;
   background: #0f172a;
-  color: white;
+  color: #ffffff;
   text-align: center;
 }
 
 .siteFooter p {
-  color: white;
+  color: #ffffff;
   margin: 0.3rem 0;
 }
 
-/* HIGH CONTRAST CLEANUPS */
+/* =========================
+   HIGH CONTRAST CLEANUPS
+========================= */
 
 body.theme-contrast .siteHeader,
 body.contrast-blue .siteHeader,
@@ -692,7 +775,13 @@ body.theme-contrast textarea {
   border-color: #ffffff;
 }
 
-/* MOBILE */
+body.theme-contrast .button {
+  color: #000000;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
 
 @media (max-width: 900px) {
   .container {
@@ -706,7 +795,16 @@ body.theme-contrast textarea {
   }
 
   .navLinks {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     justify-content: flex-start;
+    gap: 0.6rem;
+  }
+
+  .navLinks a {
+    background: rgba(37, 99, 235, 0.08);
+    text-align: center;
   }
 
   .hero,
@@ -743,14 +841,7 @@ body.theme-contrast textarea {
   }
 }
 
-@media (max-width: 520px) {
-  h1 {
-    font-size: 2rem;
-  }
-}
-
 @media (max-width: 768px) {
-
   .campusMap {
     min-height: 450px;
     width: 100%;
@@ -819,5 +910,15 @@ body.theme-contrast textarea {
   .mapLegend {
     font-size: 0.8rem;
     gap: 0.5rem;
+  }
+}
+
+@media (max-width: 520px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  .navLinks {
+    grid-template-columns: 1fr;
   }
 }
