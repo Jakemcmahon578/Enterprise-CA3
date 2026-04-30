@@ -28,10 +28,10 @@ The easiest way to deploy your Next.js app is to use the Vercel Platform from th
 
 Check out our Next.js deployment documentation for more details.
 
-#netlify setup
+# netlify setup
 
-#create netlify account
+create netlify account
 
-#when you create the netlify account you are given an option to connect to a github repostiory.
+when you create the netlify account you are given an option to connect to a github repostiory.
 
-#You connect your github account to netlify and choose the repository that you want to connect and then youll be able to launch through netlify the website
+You connect your github account to netlify and choose the repository that you want to connect and then youll be able to launch through netlify the website
