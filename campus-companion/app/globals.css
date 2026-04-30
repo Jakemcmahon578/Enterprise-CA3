@@ -72,7 +72,7 @@ body.contrast-purple {
   --primary-dark: #a78bfa;
 }
 
-/* ACCENTS */
+/* ACCENT COLOURS */
 
 body.accent-blue {
   --primary: #2563eb;
@@ -135,7 +135,7 @@ textarea:focus-visible {
   left: 1rem;
   z-index: 1000;
   background: var(--focus);
-  color: #000;
+  color: #000000;
   padding: 0.75rem 1rem;
   font-weight: 900;
   border-radius: 0.5rem;
@@ -145,7 +145,7 @@ textarea:focus-visible {
   top: 1rem;
 }
 
-/* NAVIGATION */
+/* HEADER / NAVIGATION */
 
 .siteHeader {
   background: var(--surface);
@@ -156,9 +156,9 @@ textarea:focus-visible {
 }
 
 .nav {
-  width: min(96%, 1500px);
+  width: min(97%, 1700px);
   margin: 0 auto;
-  padding: 1rem 0;
+  padding: 1.2rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -168,7 +168,8 @@ textarea:focus-visible {
 .logo {
   color: var(--primary);
   font-weight: 900;
-  font-size: 1.25rem;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -184,10 +185,10 @@ textarea:focus-visible {
 .navLinks a {
   color: var(--text);
   text-decoration: none;
+  font-size: 1.05rem;
   font-weight: 800;
-  padding: 0.55rem 0.75rem;
-  border-radius: 0.6rem;
-  font-size: 0.92rem;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.7rem;
   white-space: nowrap;
 }
 
@@ -198,20 +199,20 @@ textarea:focus-visible {
 
 .navLinks a:focus-visible {
   background: var(--primary);
-  color: white;
+  color: #ffffff;
 }
 
 /* MAIN LAYOUT */
 
 .container {
-  width: min(94%, 1450px);
+  width: min(97%, 1700px);
   margin: 0 auto;
   padding: 3rem 0;
-  min-height: 72vh;
+  min-height: 75vh;
 }
 
 section {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 /* HERO / CARDS */
@@ -223,22 +224,22 @@ section {
 .recommendationCard {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 1.15rem;
-  padding: 2rem;
+  border-radius: 1.25rem;
+  padding: 2.25rem;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
 }
 
 .hero {
-  min-height: 190px;
+  min-height: 220px;
+  padding: 2.5rem 3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  margin-bottom: 2rem;
   background: linear-gradient(135deg, var(--surface), rgba(37, 99, 235, 0.08));
 }
 
 .hero p {
-  max-width: 850px;
+  max-width: 900px;
 }
 
 .card {
@@ -248,8 +249,8 @@ section {
 }
 
 .card:hover,
-.recommendationCard:hover,
-.dayCard:hover {
+.dayCard:hover,
+.recommendationCard:hover {
   box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
 }
 
@@ -263,20 +264,20 @@ body.contrast-purple .hero {
 /* TYPOGRAPHY */
 
 h1 {
-  font-size: clamp(2.2rem, 4vw, 4rem);
+  font-size: clamp(2.4rem, 4.5vw, 4.4rem);
   line-height: 1.05;
   margin: 0.5rem 0 1rem;
   color: var(--text);
 }
 
 h2 {
-  font-size: 1.75rem;
+  font-size: 1.85rem;
   margin-top: 0;
   color: var(--text);
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   margin: 0 0 0.75rem;
   color: var(--text);
 }
@@ -313,8 +314,8 @@ strong {
 .eventGrid,
 .settingsGrid,
 .mapGrid,
-.mlDetailsGrid,
-.recommendationGrid {
+.recommendationGrid,
+.mlDetailsGrid {
   display: grid;
   gap: 1.5rem;
   align-items: stretch;
@@ -323,7 +324,7 @@ strong {
 .eventGrid,
 .settingsGrid,
 .mapGrid {
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
 .recommendationGrid,
@@ -340,7 +341,7 @@ strong {
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 0.25rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 900;
   margin-bottom: 1rem;
 }
@@ -375,10 +376,10 @@ strong {
   margin-top: auto;
   min-height: 44px;
   background: var(--primary);
-  color: #fff;
+  color: #ffffff;
   border: none;
   border-radius: 0.7rem;
-  padding: 0.75rem 1rem;
+  padding: 0.8rem 1.1rem;
   font: inherit;
   font-weight: 900;
   text-align: center;
@@ -401,7 +402,7 @@ select,
 textarea {
   width: 100%;
   min-height: 44px;
-  padding: 0.75rem;
+  padding: 0.8rem;
   border: 2px solid var(--border);
   border-radius: 0.65rem;
   background: var(--surface);
@@ -424,7 +425,7 @@ input[type="checkbox"] {
 /* TIMETABLE */
 
 .timetableToolbar {
-  max-width: 650px;
+  max-width: 720px;
 }
 
 .timetableGrid {
@@ -444,9 +445,9 @@ input[type="checkbox"] {
 
 .lessonItem {
   display: grid;
-  grid-template-columns: 150px 1fr;
+  grid-template-columns: 160px 1fr;
   gap: 1.25rem;
-  padding: 1rem;
+  padding: 1.1rem;
   border: 1px solid var(--border);
   border-radius: 0.9rem;
   background: rgba(37, 99, 235, 0.05);
@@ -698,12 +699,12 @@ body.theme-dark .scoreBar {
   margin-top: 2.5rem;
   padding: 2rem 1rem;
   background: #0f172a;
-  color: white;
+  color: #ffffff;
   text-align: center;
 }
 
 .siteFooter p {
-  color: white;
+  color: #ffffff;
   margin: 0.3rem 0;
 }
 
@@ -717,7 +718,7 @@ body.contrast-purple .siteHeader {
 
 body.theme-contrast .navLinks a {
   background: var(--primary);
-  color: #000;
+  color: #000000;
 }
 
 body.theme-contrast .navLinks a:hover {
@@ -726,27 +727,22 @@ body.theme-contrast .navLinks a:hover {
 
 body.theme-contrast .category {
   background: var(--primary);
-  color: #000;
+  color: #000000;
 }
 
 body.theme-contrast input,
 body.theme-contrast select,
 body.theme-contrast textarea {
-  border-color: white;
+  border-color: #ffffff;
 }
 
 body.theme-contrast .button {
-  color: #000;
+  color: #000000;
 }
 
 /* RESPONSIVE */
 
-@media (max-width: 1200px) {
-  .recommendationGrid,
-  .mlDetailsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
+@media (max-width: 1300px) {
   .nav {
     flex-direction: column;
     align-items: flex-start;
@@ -755,12 +751,22 @@ body.theme-contrast .button {
   .navLinks {
     justify-content: flex-start;
   }
+
+  .recommendationGrid,
+  .mlDetailsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @media (max-width: 900px) {
   .container {
     width: min(94%, 900px);
     padding: 2rem 0;
+  }
+
+  .nav {
+    width: min(94%, 900px);
+    padding: 1rem 0;
   }
 
   .navLinks {
@@ -826,5 +832,9 @@ body.theme-contrast .button {
 
   h1 {
     font-size: 2.1rem;
+  }
+
+  .hero {
+    padding: 1.5rem;
   }
 }
