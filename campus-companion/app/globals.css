@@ -11,7 +11,7 @@
   --danger: #b91c1c;
 }
 
-/* RESET */
+/* RESET / BASE */
 
 *,
 *::before,
@@ -94,7 +94,7 @@ body.accent-orange {
   --primary-dark: #9a3412;
 }
 
-/* TEXT SIZE */
+/* ACCESSIBILITY */
 
 body.text-large {
   font-size: 18px;
@@ -103,8 +103,6 @@ body.text-large {
 body.text-extra-large {
   font-size: 20px;
 }
-
-/* REDUCED MOTION */
 
 body.motion-reduced *,
 body.motion-reduced *::before,
@@ -121,8 +119,6 @@ body.motion-reduced *::after {
     scroll-behavior: auto !important;
   }
 }
-
-/* ACCESSIBILITY */
 
 a:focus-visible,
 button:focus-visible,
@@ -160,19 +156,20 @@ textarea:focus-visible {
 }
 
 .nav {
-  max-width: 1250px;
+  width: min(97%, 1700px);
   margin: 0 auto;
-  padding: 1rem 1.5rem;
+  padding: 1.2rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  gap: 2rem;
 }
 
 .logo {
   color: var(--primary);
   font-weight: 900;
-  font-size: 1.25rem;
+  font-size: 1.6rem;
+  letter-spacing: 0.5px;
   text-decoration: none;
   white-space: nowrap;
 }
@@ -180,18 +177,19 @@ textarea:focus-visible {
 .navLinks {
   display: flex;
   align-items: center;
-  gap: 0.35rem;
-  flex-wrap: wrap;
   justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.45rem;
 }
 
 .navLinks a {
   color: var(--text);
   text-decoration: none;
-  font-weight: 700;
-  padding: 0.55rem 0.75rem;
-  border-radius: 0.6rem;
-  font-size: 0.95rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+  padding: 0.6rem 0.9rem;
+  border-radius: 0.7rem;
+  white-space: nowrap;
 }
 
 .navLinks a:hover {
@@ -201,35 +199,59 @@ textarea:focus-visible {
 
 .navLinks a:focus-visible {
   background: var(--primary);
-  color: white;
+  color: #ffffff;
 }
 
 /* MAIN LAYOUT */
 
 .container {
-  max-width: 1250px;
+  width: min(97%, 1700px);
   margin: 0 auto;
-  padding: 3rem 1.5rem;
+  padding: 3rem 0;
+  min-height: 75vh;
 }
 
 section {
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
 }
 
 /* HERO / CARDS */
 
 .hero,
 .card,
-.mapWrapper {
+.mapWrapper,
+.dayCard,
+.recommendationCard {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 1.1rem;
+  border-radius: 1.25rem;
   padding: 2.25rem;
   box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
 }
 
 .hero {
+  min-height: 220px;
+  padding: 2.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   background: linear-gradient(135deg, var(--surface), rgba(37, 99, 235, 0.08));
+}
+
+.hero p {
+  max-width: 900px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.card:hover,
+.dayCard:hover,
+.recommendationCard:hover {
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
 }
 
 body.theme-dark .hero,
@@ -242,26 +264,26 @@ body.contrast-purple .hero {
 /* TYPOGRAPHY */
 
 h1 {
-  font-size: clamp(2.1rem, 5vw, 3.4rem);
-  line-height: 1.1;
+  font-size: clamp(2.4rem, 4.5vw, 4.4rem);
+  line-height: 1.05;
   margin: 0.5rem 0 1rem;
   color: var(--text);
 }
 
 h2 {
-  font-size: 1.6rem;
+  font-size: 1.85rem;
   margin-top: 0;
   color: var(--text);
 }
 
 h3 {
-  font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+  font-size: 1.3rem;
+  margin: 0 0 0.75rem;
   color: var(--text);
 }
 
 h4 {
-  font-size: 1.05rem;
+  font-size: 1.1rem;
   margin: 0 0 0.5rem;
   color: var(--text);
 }
@@ -270,6 +292,10 @@ p,
 li,
 label {
   color: var(--muted);
+}
+
+p {
+  margin-top: 0.4rem;
 }
 
 strong {
@@ -287,25 +313,26 @@ strong {
 
 .eventGrid,
 .settingsGrid,
-.mapGrid {
+.mapGrid,
+.recommendationGrid,
+.mlDetailsGrid {
   display: grid;
   gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  align-items: stretch;
 }
 
-/* CARDS */
-
-.card {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.eventGrid,
+.settingsGrid,
+.mapGrid {
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
 }
 
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.1);
+.recommendationGrid,
+.mlDetailsGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
+
+/* BADGES / STATES */
 
 .category {
   width: fit-content;
@@ -314,71 +341,10 @@ strong {
   border: 1px solid var(--border);
   border-radius: 999px;
   padding: 0.25rem 0.75rem;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 900;
-  margin-bottom: 0.75rem;
+  margin-bottom: 1rem;
 }
-
-/* BUTTONS */
-
-.button {
-  display: inline-block;
-  margin-top: auto;
-  min-height: 44px;
-  background: var(--primary);
-  color: white;
-  border: none;
-  border-radius: 0.7rem;
-  padding: 0.75rem 1rem;
-  font: inherit;
-  font-weight: 900;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.button:hover {
-  background: var(--primary-dark);
-}
-
-body.theme-contrast .button {
-  color: #000000;
-}
-
-/* FORMS */
-
-label {
-  display: block;
-  font-weight: 800;
-  margin: 0.85rem 0 0.35rem;
-}
-
-input,
-select,
-textarea {
-  width: 100%;
-  min-height: 44px;
-  padding: 0.75rem;
-  border: 2px solid var(--border);
-  border-radius: 0.65rem;
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
-}
-
-input[type="checkbox"] {
-  width: auto;
-  min-height: auto;
-  margin-right: 0.5rem;
-}
-
-.checkboxLabel {
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-}
-
-/* INFO STATES */
 
 .accessibilityNote {
   background: rgba(37, 99, 235, 0.08);
@@ -403,10 +369,63 @@ input[type="checkbox"] {
   background: rgba(37, 99, 235, 0.08);
 }
 
-/* TIMETABLE PAGE */
+/* BUTTONS / FORMS */
+
+.button {
+  display: inline-block;
+  margin-top: auto;
+  min-height: 44px;
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  border-radius: 0.7rem;
+  padding: 0.8rem 1.1rem;
+  font: inherit;
+  font-weight: 900;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: var(--primary-dark);
+}
+
+label {
+  display: block;
+  font-weight: 800;
+  margin: 0.85rem 0 0.35rem;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.8rem;
+  border: 2px solid var(--border);
+  border-radius: 0.65rem;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+input[type="checkbox"] {
+  width: auto;
+  min-height: auto;
+  margin-right: 0.5rem;
+}
+
+.checkboxLabel {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* TIMETABLE */
 
 .timetableToolbar {
-  max-width: 520px;
+  max-width: 720px;
 }
 
 .timetableGrid {
@@ -414,16 +433,7 @@ input[type="checkbox"] {
   gap: 1.5rem;
 }
 
-.dayCard {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 1.1rem;
-  padding: 1.5rem;
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.06);
-}
-
 .dayCard h3 {
-  margin-top: 0;
   padding-bottom: 0.75rem;
   border-bottom: 2px solid var(--border);
 }
@@ -435,9 +445,9 @@ input[type="checkbox"] {
 
 .lessonItem {
   display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 1rem;
-  padding: 1rem;
+  grid-template-columns: 160px 1fr;
+  gap: 1.25rem;
+  padding: 1.1rem;
   border: 1px solid var(--border);
   border-radius: 0.9rem;
   background: rgba(37, 99, 235, 0.05);
@@ -471,8 +481,6 @@ input[type="checkbox"] {
   overflow: hidden;
 }
 
-/* Main paths */
-
 .path {
   position: absolute;
   z-index: 1;
@@ -502,8 +510,6 @@ input[type="checkbox"] {
   border-radius: 999px;
   writing-mode: vertical-rl;
 }
-
-/* Connecting paths from main footpath to entrances */
 
 .connector {
   position: absolute;
@@ -547,8 +553,6 @@ input[type="checkbox"] {
   height: 90px;
   transform: translateX(-50%);
 }
-
-/* Buildings */
 
 .mapBuilding {
   position: absolute;
@@ -599,8 +603,6 @@ input[type="checkbox"] {
   transform: translateX(-50%);
 }
 
-/* Entrance and exit icons */
-
 .mapIcons {
   display: flex;
   justify-content: space-between;
@@ -643,6 +645,48 @@ input[type="checkbox"] {
   font-weight: 800;
 }
 
+/* ML RECOMMENDATIONS */
+
+.mlIntro {
+  margin-bottom: 1.5rem;
+}
+
+.recommendationCard {
+  border-top: 6px solid var(--primary);
+}
+
+.recommendationCard h3 {
+  margin-top: 0.5rem;
+}
+
+.scoreWrapper {
+  margin-top: 1rem;
+}
+
+.scoreHeader {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.scoreBar {
+  height: 14px;
+  background: rgba(37, 99, 235, 0.15);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.scoreFill {
+  height: 100%;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+body.theme-dark .scoreBar {
+  background: #1e293b;
+}
+
 /* SETTINGS */
 
 .settingsGrid {
@@ -652,19 +696,19 @@ input[type="checkbox"] {
 /* FOOTER */
 
 .siteFooter {
-  margin-top: 3rem;
-  padding: 2rem 1.25rem;
+  margin-top: 2.5rem;
+  padding: 2rem 1rem;
   background: #0f172a;
-  color: white;
+  color: #ffffff;
   text-align: center;
 }
 
 .siteFooter p {
-  color: white;
+  color: #ffffff;
   margin: 0.3rem 0;
 }
 
-/* HIGH CONTRAST CLEANUPS */
+/* HIGH CONTRAST */
 
 body.theme-contrast .siteHeader,
 body.contrast-blue .siteHeader,
@@ -692,26 +736,56 @@ body.theme-contrast textarea {
   border-color: #ffffff;
 }
 
-/* MOBILE */
+body.theme-contrast .button {
+  color: #000000;
+}
 
-@media (max-width: 900px) {
-  .container {
-    padding: 2rem 1rem;
-  }
+/* RESPONSIVE */
 
+@media (max-width: 1300px) {
   .nav {
-    padding: 1rem;
-    align-items: flex-start;
     flex-direction: column;
+    align-items: flex-start;
   }
 
   .navLinks {
     justify-content: flex-start;
   }
 
+  .recommendationGrid,
+  .mlDetailsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .container {
+    width: min(94%, 900px);
+    padding: 2rem 0;
+  }
+
+  .nav {
+    width: min(94%, 900px);
+    padding: 1rem 0;
+  }
+
+  .navLinks {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+  }
+
+  .navLinks a {
+    background: rgba(37, 99, 235, 0.08);
+    text-align: center;
+  }
+
   .hero,
   .card,
-  .mapWrapper {
+  .mapWrapper,
+  .dayCard,
+  .recommendationCard {
     padding: 1.5rem;
   }
 
@@ -743,81 +817,24 @@ body.theme-contrast textarea {
   }
 }
 
-@media (max-width: 520px) {
+@media (max-width: 600px) {
+  .eventGrid,
+  .settingsGrid,
+  .mapGrid,
+  .recommendationGrid,
+  .mlDetailsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .navLinks {
+    grid-template-columns: 1fr;
+  }
+
   h1 {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-
-  .campusMap {
-    min-height: 450px;
-    width: 100%;
-    overflow: visible;
-    transform: scale(0.9);
-    transform-origin: top center;
+    font-size: 2.1rem;
   }
 
-  .mapBuilding {
-    width: 160px;
-    min-height: 110px;
-    padding: 0.75rem;
-    font-size: 0.8rem;
-  }
-
-  .tech {
-    top: 5%;
-    left: 5%;
-  }
-
-  .science {
-    top: 5%;
-    right: 5%;
-  }
-
-  .business {
-    bottom: 5%;
-    left: 5%;
-  }
-
-  .arts {
-    bottom: 5%;
-    right: 5%;
-  }
-
-  .library {
-    top: 40%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .connector {
-    width: 24px;
-    border-width: 2px;
-  }
-
-  .connectorTech,
-  .connectorScience,
-  .connectorBusiness,
-  .connectorArts {
-    height: 120px;
-  }
-
-  .connectorLibrary {
-    height: 60px;
-  }
-
-  .horizontalPath {
-    height: 36px;
-  }
-
-  .verticalPath {
-    width: 36px;
-  }
-
-  .mapLegend {
-    font-size: 0.8rem;
-    gap: 0.5rem;
+  .hero {
+    padding: 1.5rem;
   }
 }
